@@ -1,5 +1,6 @@
-
 # candidates.py
+import streamlit as st
+
 class Candidate:
     def __init__(self, name, party):
         self.name = name
@@ -9,7 +10,6 @@ class Candidate:
     def add_vote(self):
         self.votes += 1
 
-# election.py
 class Election:
     def __init__(self):
         self.candidates = []
@@ -29,8 +29,6 @@ class Election:
         for candidate in self.candidates:
             results.append((candidate.name, candidate.party, candidate.votes))
         return results
-
-import streamlit as st
 
 # Custom CSS for enhanced styling and background animation
 st.markdown("""
@@ -108,8 +106,11 @@ def home(election):
 
     st.header("Election Results")
     results = election.get_results()
-    for name, party, votes in results:
-        st.write(f"**Name:** {name}, **Party:** {party}, **Votes:** {votes}")
+    if not results:
+        st.warning("No election results available. Cast votes to see results.")
+    else:
+        result_table = [(f"**Name:** {name}", f"**Party:** {party}", f"**Votes:** {votes}") for name, party, votes in results]
+        st.table(result_table)
 
 def about():
     st.title("📄 About")
