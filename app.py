@@ -153,7 +153,8 @@ def contact_us():
 
 def main():
     st.title("BANO QABIL - Online Election System")
-    st.image("your_logo.png", width=200)
+    st.image("C:\Users\Muhammad Sajjad\Downloads\pexels-element-digital-1550337.jpg", width=200)
+    
 
     election = Election()  # Move election instance outside main() to persist data between function calls
 
