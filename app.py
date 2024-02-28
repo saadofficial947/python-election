@@ -18,12 +18,13 @@ class Election:
     def add_candidate(self, candidate):
         self.candidates.append(candidate)
 
-    def vote(self, candidate_index):
-        if 0 <= candidate_index < len(self.candidates):
+    def vote(self, candidate_name):
+        candidate_index = next((i for i, candidate in enumerate(self.candidates) if candidate.name == candidate_name), None)
+        if candidate_index is not None:
             self.candidates[candidate_index].add_vote()
             st.success("Vote cast successfully!")
         else:
-            st.error("Invalid candidate index.")
+            st.error("Invalid candidate name.")
 
     def get_results(self):
         results = []
@@ -103,12 +104,7 @@ def home(election):
         vote_index = st.selectbox("Select Candidate to Vote", vote_options)
 
         if st.button("Cast Vote", key="cast_vote_button"):
-            # Get the index of the selected candidate
-            candidate_index = [index for index, candidate in enumerate(election.candidates) if candidate.name == vote_index]
-            if candidate_index:
-                election.vote(candidate_index[0])
-            else:
-                st.error("Invalid candidate name selected.")
+            election.vote(vote_index)
 
     st.header("Election Results")
     results = election.get_results()
