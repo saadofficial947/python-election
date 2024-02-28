@@ -1,3 +1,4 @@
+
 # candidates.py
 import streamlit as st
 
@@ -102,7 +103,12 @@ def home(election):
         vote_index = st.selectbox("Select Candidate to Vote", vote_options)
 
         if st.button("Cast Vote", key="cast_vote_button"):
-            election.vote(vote_options.index(vote_index))
+            # Get the index of the selected candidate
+            candidate_index = [index for index, candidate in enumerate(election.candidates) if candidate.name == vote_index]
+            if candidate_index:
+                election.vote(candidate_index[0])
+            else:
+                st.error("Invalid candidate name selected.")
 
     st.header("Election Results")
     results = election.get_results()
