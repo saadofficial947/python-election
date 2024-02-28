@@ -1,7 +1,5 @@
 
 # candidates.py
-import streamlit as st
-
 class Candidate:
     def __init__(self, name, party):
         self.name = name
@@ -11,6 +9,7 @@ class Candidate:
     def add_vote(self):
         self.votes += 1
 
+# election.py
 class Election:
     def __init__(self):
         self.candidates = []
@@ -18,20 +17,20 @@ class Election:
     def add_candidate(self, candidate):
         self.candidates.append(candidate)
 
-    def vote(self, candidate_name):
-        candidate = next((c for c in self.candidates if c.name == candidate_name), None)
-        if candidate:
-            candidate.add_vote()
+    def vote(self, candidate_index):
+        if 0 <= candidate_index < len(self.candidates):
+            self.candidates[candidate_index].add_vote()
             st.success("Vote cast successfully!")
         else:
-            st.error("Invalid candidate name.")
+            st.error("Invalid candidate index.")
 
-    @st.cache(suppress_st_warning=True)
     def get_results(self):
         results = []
         for candidate in self.candidates:
             results.append((candidate.name, candidate.party, candidate.votes))
         return results
+
+import streamlit as st
 
 # Custom CSS for enhanced styling and background animation
 st.markdown("""
@@ -102,28 +101,15 @@ def home(election):
         st.warning("No candidates registered. Please register candidates before voting.")
     else:
         vote_options = [candidate.name for candidate in election.candidates]
-        vote_name = st.selectbox("Select Candidate to Vote", vote_options)
+        vote_index = st.selectbox("Select Candidate to Vote", vote_options)
 
-        if st.button("Cast Vote", key=f"cast_vote_button_{vote_name}"):
-            election.vote(vote_name)
+        if st.button("Cast Vote", key="cast_vote_button"):
+            election.vote(vote_options.index(vote_index))
 
     st.header("Election Results")
     results = election.get_results()
-    if not results:
-        st.warning("No election results available. Cast votes to see results.")
-    else:
-        result_table = [(f"**Name:** {name}", f"**Party:** {party}", f"**Votes:** {votes}") for name, party, votes in results]
-        st.table(result_table)
-
-# Additional code to display votes for each candidate
-def display_votes(election):
-    st.header("Display Votes")
-    results = election.get_results()
-    if not results:
-        st.warning("No election results available. Cast votes to see results.")
-    else:
-        for name, party, votes in results:
-            st.write(f"**Name:** {name}, **Party:** {party}, **Votes:** {votes}")
+    for name, party, votes in results:
+        st.write(f"**Name:** {name}, **Party:** {party}, **Votes:** {votes}")
 
 def about():
     st.title("📄 About")
@@ -156,10 +142,19 @@ def contact_us():
 
 def main():
     st.title("BANO QABIL - Online Election System")
-
+    st.image(r"C:\\Users\\Muhammad Sajjad\\Downloads\\pexels-element-digital-1550337.jpg", width=200)
+    
     election = Election()  # Move election instance outside main() to persist data between function calls
 
     st.sidebar.title("Menu")
-    choice = st.sidebar.radio("Select Option", ["Home", "Display Votes", "About", "Contact Us"])
+    choice = st.sidebar.radio("Select Option", ["Home", "About", "Contact Us"])
 
-    if choice ==
+    if choice == "Home":
+        home(election)
+    elif choice == "About":
+        about()
+    elif choice == "Contact Us":
+        contact_us()
+
+if __name__ == "__main__":
+    main()
