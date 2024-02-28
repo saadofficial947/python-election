@@ -1,7 +1,4 @@
 
-Certainly! It seems there's an issue with the image path. You should either use forward slashes or escape the backslashes. Here's the corrected code:
-
-```python
 # candidates.py
 class Candidate:
     def __init__(self, name, party):
@@ -145,7 +142,7 @@ def contact_us():
 
 def main():
     st.title("BANO QABIL - Online Election System")
-    st.image(r"C:\Users\Muhammad Sajjad\Downloads\pexels-element-digital-1550337.jpg", width=200)
+    st.image(r"C:\\Users\\Muhammad Sajjad\\Downloads\\pexels-element-digital-1550337.jpg", width=200)
     
     election = Election()  # Move election instance outside main() to persist data between function calls
 
@@ -161,6 +158,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-```
-
-This corrected code should resolve the syntax error related to the image path. Please make sure to adjust the image path according to your file system.
