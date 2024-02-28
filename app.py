@@ -26,6 +26,7 @@ class Election:
         else:
             st.error("Invalid candidate name.")
 
+    @st.cache(suppress_st_warning=True)
     def get_results(self):
         results = []
         for candidate in self.candidates:
@@ -103,7 +104,7 @@ def home(election):
         vote_options = [candidate.name for candidate in election.candidates]
         vote_name = st.selectbox("Select Candidate to Vote", vote_options)
 
-        if st.button("Cast Vote", key="cast_vote_button"):
+        if st.button("Cast Vote", key=f"cast_vote_button_{vote_name}"):
             election.vote(vote_name)
 
     st.header("Election Results")
@@ -161,14 +162,4 @@ def main():
     st.sidebar.title("Menu")
     choice = st.sidebar.radio("Select Option", ["Home", "Display Votes", "About", "Contact Us"])
 
-    if choice == "Home":
-        home(election)
-    elif choice == "Display Votes":
-        display_votes(election)
-    elif choice == "About":
-        about()
-    elif choice == "Contact Us":
-        contact_us()
-
-if __name__ == "__main__":
-    main()
+    if choice ==
