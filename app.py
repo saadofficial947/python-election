@@ -19,9 +19,9 @@ class Election:
         self.candidates.append(candidate)
 
     def vote(self, candidate_name):
-        candidate_index = next((i for i, candidate in enumerate(self.candidates) if candidate.name == candidate_name), None)
-        if candidate_index is not None:
-            self.candidates[candidate_index].add_vote()
+        candidate = next((c for c in self.candidates if c.name == candidate_name), None)
+        if candidate:
+            candidate.add_vote()
             st.success("Vote cast successfully!")
         else:
             st.error("Invalid candidate name.")
@@ -101,10 +101,10 @@ def home(election):
         st.warning("No candidates registered. Please register candidates before voting.")
     else:
         vote_options = [candidate.name for candidate in election.candidates]
-        vote_index = st.selectbox("Select Candidate to Vote", vote_options)
+        vote_name = st.selectbox("Select Candidate to Vote", vote_options)
 
         if st.button("Cast Vote", key="cast_vote_button"):
-            election.vote(vote_index)
+            election.vote(vote_name)
 
     st.header("Election Results")
     results = election.get_results()
