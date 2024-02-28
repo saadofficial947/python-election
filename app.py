@@ -114,6 +114,16 @@ def home(election):
         result_table = [(f"**Name:** {name}", f"**Party:** {party}", f"**Votes:** {votes}") for name, party, votes in results]
         st.table(result_table)
 
+# Additional code to display votes for each candidate
+def display_votes(election):
+    st.header("Display Votes")
+    results = election.get_results()
+    if not results:
+        st.warning("No election results available. Cast votes to see results.")
+    else:
+        for name, party, votes in results:
+            st.write(f"**Name:** {name}, **Party:** {party}, **Votes:** {votes}")
+
 def about():
     st.title("📄 About")
     st.markdown("BANO QABIL stands as a sophisticated online election system built using Streamlit, offering a robust set of features to ensure a seamless and transparent voting process.")
@@ -149,10 +159,12 @@ def main():
     election = Election()  # Move election instance outside main() to persist data between function calls
 
     st.sidebar.title("Menu")
-    choice = st.sidebar.radio("Select Option", ["Home", "About", "Contact Us"])
+    choice = st.sidebar.radio("Select Option", ["Home", "Display Votes", "About", "Contact Us"])
 
     if choice == "Home":
         home(election)
+    elif choice == "Display Votes":
+        display_votes(election)
     elif choice == "About":
         about()
     elif choice == "Contact Us":
