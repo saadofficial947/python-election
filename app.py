@@ -1,4 +1,7 @@
 
+Certainly! Here is the modified code with the animated text part removed:
+
+```python
 # candidates.py
 class Candidate:
     def __init__(self, name, party):
@@ -31,7 +34,6 @@ class Election:
         return results
 
 import streamlit as st
-import time
 
 # Custom CSS for enhanced styling and background animation
 st.markdown("""
@@ -72,7 +74,7 @@ st.markdown("""
             color: black;
             border-radius: 5px;
             padding: 10px 20px;
-            font-size: 16px;
+            font-size: 16px.
         }
         .header-style {
             background-color: #4682B4;  /* Steel Blue */
@@ -83,13 +85,6 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
-
-# Animated streamlit text
-def animated_text(text):
-    for c in text:
-        st.text(c)
-        time.sleep(0.05)
-        st.empty()
 
 def home(election):
     st.header("Register Candidates")
@@ -143,9 +138,6 @@ def about():
     st.write("\nBANO QABIL is meticulously crafted to streamline online elections, ensuring efficiency, user-friendliness, and security. The system's architecture allows for easy scalability and adaptation to various election scenarios, making it a robust solution for democratic processes.")
     
     st.write("\nWhether facilitating small-scale local elections or contributing to larger national events, BANO QABIL prioritizes the principles of fairness, accessibility, and transparency, thereby elevating democratic practices to new heights.")
-    
-    st.header("Special Feature: Animated Text")
-    animated_text
 
 def contact_us():
     st.title("📧 Contact Us")
@@ -155,7 +147,6 @@ def main():
     st.title("BANO QABIL - Online Election System")
     st.image("C:\Users\Muhammad Sajjad\Downloads\pexels-element-digital-1550337.jpg", width=200)
     
-
     election = Election()  # Move election instance outside main() to persist data between function calls
 
     st.sidebar.title("Menu")
@@ -170,3 +161,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+```
+
