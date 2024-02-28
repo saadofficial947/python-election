@@ -1,7 +1,4 @@
 
-Certainly! Here is the modified code with the animated text part removed:
-
-```python
 # candidates.py
 class Candidate:
     def __init__(self, name, party):
@@ -161,5 +158,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-```
-
